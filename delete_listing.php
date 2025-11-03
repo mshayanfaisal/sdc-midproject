@@ -1,46 +1,32 @@
-<?php 
+<?php
 include 'db.php';
 
-$search = "";
-if (isset($_GET['search'])) {
-    $search = trim($_GET['search']);
-    $sql = "SELECT * FROM Products WHERE name LIKE '%$search%'";
-} else {
-    $sql = "SELECT * FROM Products";
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    // $conn->query("DELETE FROM Retailers WHERE id=$id");
 }
 
-$result = $conn->query($sql);
+$result = $conn->query("SELECT * FROM products WHERE is_delete = 1");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Product List</title>
+  <title>Retailers</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="dashboard">
-    <?php include 'sidebar.php'; ?>
+<div class="dashboard">
+  <?php include 'sidebar.php'; ?>
 
-    <div class="main">
-      <div class="product-page">
-        <h1>All Products</h1>
-<a href="delete_listing.php">View deleted products</a>
-        <form method="GET" class="product-search-form">
-          <input 
-            type="text" 
-            name="search" 
-            placeholder="Search product by name..." 
-            value="<?php echo $search; ?>" 
-          >
-          <button 
-            type="submit"
-          >
-            Search
-          </button>
-        </form>
+  <div class="main">
+    <div class="page-header">
+      <h1>Deleted Products</h1>
+    </div>
 
+    <div class="container">
+        <tbody>
         <div class="product-grid">
           <?php
           if ($result->num_rows > 0) {
@@ -61,9 +47,11 @@ $result = $conn->query($sql);
           }
           ?>
         </div>
-      </div>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
 </body>
 </html>
 

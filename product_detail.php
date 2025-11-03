@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    $conn->query("DELETE FROM Products WHERE id=$id");
+    $conn->query("UPDATE Products SET is_delete=true");
     $message = "Product deleted successfully.";
     unset($product);
 }
